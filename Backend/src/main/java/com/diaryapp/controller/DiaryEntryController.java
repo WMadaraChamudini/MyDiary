@@ -28,7 +28,7 @@ import com.diaryapp.repository.DiaryEntryRepository;
 
 @RestController
 @RequestMapping("/api/diary")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8000", "http://localhost:5500"})
+@CrossOrigin(origins = "*")
 public class DiaryEntryController {
     private final DiaryEntryRepository diaryEntryRepository;
 
