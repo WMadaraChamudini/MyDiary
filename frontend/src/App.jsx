@@ -11,6 +11,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedEntry, setSelectedEntry] = useState(null);
+  const [formKey, setFormKey] = useState(Date.now()); // Key to reset form inputs
 
   useEffect(() => {
     fetchEntries();
@@ -70,6 +71,7 @@ function App() {
       setImage(null);
       setVideo(null);
       setAudio(null);
+      setFormKey(Date.now()); // Reset form key to re-render inputs
       await fetchEntries(); // Refresh entries
       console.log('Entry saved and refreshed');
     } catch (error) {
@@ -88,7 +90,6 @@ function App() {
     setSelectedEntry(null);
   };
 
-  // Safely handle null values in getHeading
   const getHeading = (topic, content) => {
     const safeTopic = topic || '';
     const safeContent = content || '';
@@ -100,9 +101,9 @@ function App() {
       <h1 className="text-3xl font-bold mb-4">MyDiary</h1>
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-2">New Entry</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} key={formKey} className="space-y-4">
           <div>
-            
+            <label className="block mb-1">Topic:</label>
             <input
               type="text"
               className="w-full p-2 border rounded"
