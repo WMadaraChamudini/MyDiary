@@ -16,6 +16,7 @@ public class DiaryEntry {
 
     @Column(nullable = false)
     private String content;
+    private String topic;
 
     private String imagePath;
     private String videoPath;
@@ -33,6 +34,8 @@ public class DiaryEntry {
     public void setId(Long id) { this.id = id; }
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
+    public String getTopic() { return topic; }
+    public void setTopic(String topic) { this.topic = topic; }
     public String getImagePath() { return imagePath; }
     public void setImagePath(String imagePath) { this.imagePath = imagePath; }
     public String getVideoPath() { return videoPath; }

@@ -42,18 +42,19 @@ public class DiaryEntryController {
     @PostMapping
     public ResponseEntity<DiaryEntry> createEntry(
             @RequestParam("content") String content,
+            @RequestParam(value = "topic", required = false) String topic, // Add this
             @RequestParam(value = "image", required = false) MultipartFile image,
             @RequestParam(value = "video", required = false) MultipartFile video,
             @RequestParam(value = "audio", required = false) MultipartFile audio) throws IOException {
         DiaryEntry entry = new DiaryEntry();
         entry.setContent(content);
+        if (topic != null) entry.setTopic(topic); // Set topic if provided
 
         File directory = new File(uploadDir);
         if (!directory.exists()) {
             directory.mkdirs();
         }
 
-        // Handle file uploads
         if (image != null && !image.isEmpty()) {
             String fileName = UUID.randomUUID() + "_" + image.getOriginalFilename();
             Path filePath = Paths.get(uploadDir, fileName);
