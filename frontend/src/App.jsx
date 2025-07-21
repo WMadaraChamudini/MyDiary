@@ -15,6 +15,7 @@ function App() {
   const fetchEntries = async () => {
     try {
       const response = await axios.get('http://localhost:8080/api/diary');
+      console.log('Fetched entries:', response.data);
       setEntries(response.data);
     } catch (error) {
       console.error('Error fetching entries:', error);
@@ -37,7 +38,7 @@ function App() {
       setImage(null);
       setVideo(null);
       setAudio(null);
-      fetchEntries();
+      await fetchEntries();
     } catch (error) {
       console.error('Error creating entry:', error);
     }
