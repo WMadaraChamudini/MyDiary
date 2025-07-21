@@ -103,7 +103,7 @@ function App() {
         <h2 className="text-xl font-semibold mb-2">New Entry</h2>
         <form onSubmit={handleSubmit} key={formKey} className="space-y-4">
           <div>
-            <label className="block mb-1">Topic:</label>
+            {/*<label className="block mb-1">Topic:</label>*/}
             <input
               type="text"
               className="w-full p-2 border rounded"
