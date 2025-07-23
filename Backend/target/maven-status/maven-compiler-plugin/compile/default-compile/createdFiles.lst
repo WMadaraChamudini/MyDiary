@@ -1,3 +1,4 @@
+com\diaryapp\entity\DiaryEntry.class
 com\diaryapp\repository\DiaryEntryRepository.class
 com\diaryapp\controller\DiaryEntryController.class
 com\diaryapp\DiaryApplication.class

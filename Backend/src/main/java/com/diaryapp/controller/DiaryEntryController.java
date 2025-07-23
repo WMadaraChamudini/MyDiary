@@ -15,9 +15,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping; // Ensure this import
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping; // Ensure this import
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,13 +44,13 @@ public class DiaryEntryController {
     @PostMapping
     public ResponseEntity<DiaryEntry> createEntry(
             @RequestParam("content") String content,
-            @RequestParam(value = "topic", required = false) String topic, // Add this
+            @RequestParam(value = "topic", required = false) String topic,
             @RequestParam(value = "image", required = false) MultipartFile image,
             @RequestParam(value = "video", required = false) MultipartFile video,
             @RequestParam(value = "audio", required = false) MultipartFile audio) throws IOException {
         DiaryEntry entry = new DiaryEntry();
         entry.setContent(content);
-        if (topic != null) entry.setTopic(topic); // Set topic if provided
+        if (topic != null) entry.setTopic(topic);
 
         File directory = new File(uploadDir);
         if (!directory.exists()) {
@@ -102,5 +104,47 @@ public class DiaryEntryController {
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType != null ? contentType : "application/octet-stream"))
                 .body(resource);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEntry(@PathVariable Long id) {
+        diaryEntryRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DiaryEntry> updateEntry(
+            @PathVariable Long id,
+            @RequestParam("content") String content,
+            @RequestParam(value = "topic", required = false) String topic,
+            @RequestParam(value = "image", required = false) MultipartFile image,
+            @RequestParam(value = "video", required = false) MultipartFile video,
+            @RequestParam(value = "audio", required = false) MultipartFile audio) throws IOException {
+        DiaryEntry entry = diaryEntryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Entry not found"));
+        entry.setContent(content);
+        if (topic != null) entry.setTopic(topic);
+
+        if (image != null && !image.isEmpty()) {
+            String fileName = UUID.randomUUID() + "_" + image.getOriginalFilename();
+            Path filePath = Paths.get(uploadDir, fileName);
+            Files.write(filePath, image.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+            entry.setImagePath(fileName);
+        }
+        if (video != null && !video.isEmpty()) {
+            String fileName = UUID.randomUUID() + "_" + video.getOriginalFilename();
+            Path filePath = Paths.get(uploadDir, fileName);
+            Files.write(filePath, video.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+            entry.setVideoPath(fileName);
+        }
+        if (audio != null && !audio.isEmpty()) {
+            String fileName = UUID.randomUUID() + "_" + audio.getOriginalFilename();
+            Path filePath = Paths.get(uploadDir, fileName);
+            Files.write(filePath, audio.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+            entry.setAudioPath(fileName);
+        }
+
+        DiaryEntry updatedEntry = diaryEntryRepository.save(entry);
+        return ResponseEntity.ok(updatedEntry);
     }
 }
