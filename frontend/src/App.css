@@ -1,0 +1,15 @@
+@media (max-width: 640px) {
+  nav .container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  nav .space-x-4 {
+    space-x-2;
+  }
+}
+
+@media (min-width: 641px) {
+  nav .container {
+    flex-direction: row;
+  }
+}
