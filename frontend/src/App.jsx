@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
 import AddEntry from './components/AddEntry';
@@ -6,13 +5,13 @@ import ViewEntries from './components/ViewEntries';
 
 function NavigationBar() {
   return (
-    <nav className="bg-blue-600 p-4 text-white">
+    <nav className="bg-dark-pastel-purple p-4 text-white">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-2xl font-bold">My Diary</h1>
         <div className="space-x-4">
-          <Link to="/" className="hover:underline">Home</Link>
-          <Link to="/add" className="hover:underline">Add Entry</Link>
-          <Link to="/view" className="hover:underline">View Entries</Link>
+          <Link to="/" className="hover:text-pastel-purple">Home</Link>
+          <Link to="/add" className="hover:text-pastel-purple">Add Entry</Link>
+          <Link to="/view" className="hover:text-pastel-purple">View Entries</Link>
         </div>
       </div>
     </nav>
@@ -21,19 +20,19 @@ function NavigationBar() {
 
 function MenuPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-blue-50 to-white flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-lavender via-pastel-purple to-lavender flex items-center justify-center p-6">
       <div className="text-center">
-        <h2 className="text-4xl font-extrabold text-gray-800 mb-8 animate-pulse">Welcome to My Diary!</h2>
-        <div className="bg-white p-8 rounded-lg shadow-2xl  w-full max-w-md">
+        <h2 className="text-4xl font-extrabold text-dark-pastel-purple mb-8 animate-pulse">Welcome to My Diary!</h2>
+        <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
           <Link
             to="/add"
-            className="block bg-blue-500 text-white px-6 py-3 rounded-lg mb-4 hover:bg-blue-600 transition duration-200"
+            className="block bg-muted-purple text-white px-6 py-3 rounded-lg mb-4 hover:bg-dark-pastel-purple transition duration-200"
           >
             Add Entry
           </Link>
           <Link
             to="/view"
-            className="block bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition duration-200"
+            className="block bg-muted-purple text-white px-6 py-3 rounded-lg hover:bg-dark-pastel-purple transition duration-200"
           >
             View Entries
           </Link>
@@ -48,7 +47,7 @@ function AppContent() {
   const showNav = location.pathname !== '/';
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-lavender">
       {showNav && <NavigationBar />}
       <div className="container mx-auto p-4">
         <Routes>

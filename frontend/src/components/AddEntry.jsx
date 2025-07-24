@@ -1,42 +1,43 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 function AddEntry() {
-  const [content, setContent] = useState('');
-  const [topic, setTopic] = useState('');
-  const [image, setImage] = useState(null);
-  const [video, setVideo] = useState(null);
-  const [audio, setAudio] = useState(null);
+  const [entry, setEntry] = useState({ topic: '', content: '', image: null, video: null, audio: null });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!content.trim()) {
+    const safeContent = entry.content || '';
+    if (!safeContent.trim()) {
       setError('Content is required');
       return;
     }
     setLoading(true);
     setError(null);
     const formData = new FormData();
-    formData.append('content', content);
-    if (topic.trim()) formData.append('topic', topic);
-    if (image) formData.append('image', image);
-    if (video) formData.append('video', video);
-    if (audio) formData.append('audio', audio);
-    console.log('Submitting formData:', { topic, content, imageName: image?.name, videoName: video?.name, audioName: audio?.name });
+    formData.append('content', safeContent);
+    if (entry.topic?.trim()) formData.append('topic', entry.topic);
+    if (entry.image) formData.append('image', entry.image);
+    if (entry.video) formData.append('video', entry.video);
+    if (entry.audio) formData.append('audio', entry.audio);
+    console.log('Submitting formData:', {
+      topic: entry.topic,
+      content: safeContent,
+      imageName: entry.image?.name,
+      videoName: entry.video?.name,
+      audioName: entry.audio?.name
+    });
 
     try {
       await axios.post('http://localhost:8080/api/diary', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      console.log('Entry saved');
-      navigate('/view');
+      console.log('Entry added');
+      setEntry({ topic: '', content: '', image: null, video: null, audio: null });
     } catch (error) {
-      console.error('Error creating entry:', { message: error.message, status: error.response?.status, data: error.response?.data });
-      setError(`Failed to save entry. Status: ${error.response?.status || 'Unknown'}, Message: ${error.message}`);
+      console.error('Error adding entry:', { message: error.message, status: error.response?.status, data: error.response?.data });
+      setError(`Failed to add entry. Status: ${error.response?.status || 'Unknown'}, Message: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -44,64 +45,64 @@ function AddEntry() {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-4">Add New Entry</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <h2 className="text-2xl font-semibold mb-4 text-dark-pastel-purple">Add New Entry</h2>
+      <form onSubmit={handleSubmit} className="max-w-lg space-y-4">
         <div>
-          <label className="block mb-1">Topic:</label>
+          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Topic:</label>
           <input
             type="text"
-            className="w-full p-2 border rounded"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
+            className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
+            value={entry.topic}
+            onChange={(e) => setEntry({ ...entry, topic: e.target.value })}
             placeholder="Enter a topic (optional)"
           />
         </div>
         <div>
-          <label className="block mb-1">Content:</label>
+          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Content:</label>
           <textarea
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
             rows="4"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            value={entry.content}
+            onChange={(e) => setEntry({ ...entry, content: e.target.value })}
             placeholder="Write your diary entry..."
             required
           />
         </div>
         <div>
-          <label className="block mb-1">Image:</label>
+          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Image:</label>
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
-            className="p-2"
+            onChange={(e) => setEntry({ ...entry, image: e.target.files[0] })}
+            className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
           />
         </div>
         <div>
-          <label className="block mb-1">Video:</label>
+          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Video:</label>
           <input
             type="file"
             accept="video/*"
-            onChange={(e) => setVideo(e.target.files[0])}
-            className="p-2"
+            onChange={(e) => setEntry({ ...entry, video: e.target.files[0] })}
+            className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
           />
         </div>
         <div>
-          <label className="block mb-1">Audio:</label>
+          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Audio:</label>
           <input
             type="file"
             accept="audio/*"
-            onChange={(e) => setAudio(e.target.files[0])}
-            className="p-2"
+            onChange={(e) => setEntry({ ...entry, audio: e.target.files[0] })}
+            className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
           />
         </div>
         <button
           type="submit"
-          className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`bg-muted-purple text-white px-4 py-2 rounded hover:bg-dark-pastel-purple text-sm sm:text-base ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={loading}
         >
-          {loading ? 'Saving...' : 'Save Entry'}
+          {loading ? 'Saving...' : 'Add Entry'}
         </button>
-        {error && <p className="text-red-500 mt-2">{error}</p>}
+        {error && <p className="text-dark-pastel-purple mt-2 text-sm sm:text-base">{error}</p>}
       </form>
     </div>
   );
