@@ -97,7 +97,7 @@ function AddEntry() {
         </div>
         <button
           type="submit"
-          className={`bg-muted-purple-text text-white px-4 py-2 rounded hover:bg-dark-pastel-purple-text text-sm sm:text-base ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`bg-dark-pastel-purple-tex text-white px-4 py-2 rounded hover:bg-dark-pastel-purple-text text-sm sm:text-base ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={loading}
         >
           {loading ? 'Saving...' : 'Add Entry'}

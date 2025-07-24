@@ -113,13 +113,13 @@ function ViewEntries() {
               <div className="space-x-2">
                 <button
                   onClick={() => setEditEntry({ ...entry, image: null, video: null, audio: null, content: entry.content || '', topic: entry.topic || '' })}
-                  className="bg-muted-purple-text text-white px-4 py-2 rounded hover:bg-dark-pastel-purple-text"
+                  className="bg-dark-pastel-purple-tex text-white px-4 py-2 rounded hover:bg-dark-pastel-purple-text"
                 >
                   Update
                 </button>
                 <button
                   onClick={() => handleDelete(entry.id)}
-                  className="bg-muted-purple-text text-white px-4 py-2 rounded hover:bg-dark-pastel-purple-text"
+                  className="bg-dark-pastel-purple-tex text-white px-4 py-2 rounded hover:bg-dark-pastel-purple-text"
                 >
                   Delete
                 </button>

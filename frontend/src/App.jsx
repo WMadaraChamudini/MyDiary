@@ -26,13 +26,13 @@ function MenuPage() {
         <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
           <Link
             to="/add"
-            className="block bg-muted-purple-text text-white px-6 py-3 rounded-lg mb-4 hover:bg-dark-pastel-purple-text transition duration-200"
+            className="block bg-dark-pastel-purple-tex text-white px-6 py-3 rounded-lg mb-4 hover:bg-dark-pastel-purple-text transition duration-200"
           >
             Add Entry
           </Link>
           <Link
             to="/view"
-            className="block bg-muted-purple-text text-white px-6 py-3 rounded-lg hover:bg-dark-pastel-purple-text transition duration-200"
+            className="block bg-dark-pastel-purple-tex text-white px-6 py-3 rounded-lg hover:bg-dark-pastel-purple-text transition duration-200"
           >
             View Entries
           </Link>
