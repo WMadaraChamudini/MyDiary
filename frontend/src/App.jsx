@@ -20,7 +20,7 @@ function NavigationBar() {
 
 function MenuPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-lavender-bg via-pastel-purple-bg to-lavender-bg flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6">
       <div className="text-center">
         <h2 className="text-4xl font-extrabold text-dark-pastel-purple-text mb-12 animate-pulse">Welcome to My Diary!</h2>
         <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
@@ -47,7 +47,7 @@ function AppContent() {
   const showNav = location.pathname !== '/';
 
   return (
-    <div className="min-h-screen bg-lavender-bg">
+    <div className="min-h-screen bg-[url('/src/assets/background.png')] bg-cover bg-no-repeat">
       {showNav && <NavigationBar />}
       <div className="container mx-auto p-4">
         <Routes>
