@@ -45,22 +45,22 @@ function AddEntry() {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-4 text-dark-pastel-purple">Add New Entry</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-dark-pastel-purple-text">Add New Entry</h2>
       <form onSubmit={handleSubmit} className="max-w-lg space-y-4">
         <div>
-          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Topic:</label>
+          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple-text">Topic:</label>
           <input
             type="text"
-            className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
+            className="w-full p-2 border border-muted-purple-bg rounded text-sm sm:text-base"
             value={entry.topic}
             onChange={(e) => setEntry({ ...entry, topic: e.target.value })}
             placeholder="Enter a topic (optional)"
           />
         </div>
         <div>
-          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Content:</label>
+          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple-text">Content:</label>
           <textarea
-            className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
+            className="w-full p-2 border border-muted-purple-bg rounded text-sm sm:text-base"
             rows="4"
             value={entry.content}
             onChange={(e) => setEntry({ ...entry, content: e.target.value })}
@@ -69,40 +69,40 @@ function AddEntry() {
           />
         </div>
         <div>
-          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Image:</label>
+          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple-text">Image:</label>
           <input
             type="file"
             accept="image/*"
             onChange={(e) => setEntry({ ...entry, image: e.target.files[0] })}
-            className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
+            className="w-full p-2 border border-muted-purple-bg rounded text-sm sm:text-base"
           />
         </div>
         <div>
-          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Video:</label>
+          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple-text">Video:</label>
           <input
             type="file"
             accept="video/*"
             onChange={(e) => setEntry({ ...entry, video: e.target.files[0] })}
-            className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
+            className="w-full p-2 border border-muted-purple-bg rounded text-sm sm:text-base"
           />
         </div>
         <div>
-          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Audio:</label>
+          <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple-text">Audio:</label>
           <input
             type="file"
             accept="audio/*"
             onChange={(e) => setEntry({ ...entry, audio: e.target.files[0] })}
-            className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
+            className="w-full p-2 border border-muted-purple-bg rounded text-sm sm:text-base"
           />
         </div>
         <button
           type="submit"
-          className={`bg-muted-purple text-white px-4 py-2 rounded hover:bg-dark-pastel-purple text-sm sm:text-base ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`bg-muted-purple-text text-white px-4 py-2 rounded hover:bg-dark-pastel-purple-text text-sm sm:text-base ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={loading}
         >
           {loading ? 'Saving...' : 'Add Entry'}
         </button>
-        {error && <p className="text-dark-pastel-purple mt-2 text-sm sm:text-base">{error}</p>}
+        {error && <p className="text-dark-pastel-purple-text mt-2 text-sm sm:text-base">{error}</p>}
       </form>
     </div>
   );

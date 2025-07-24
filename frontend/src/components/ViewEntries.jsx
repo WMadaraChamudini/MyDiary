@@ -97,7 +97,7 @@ function ViewEntries() {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-4 text-dark-pastel-purple">Diary Entries</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-dark-pastel-purple-text">Diary Entries</h2>
       <div className="space-y-4">
         {loading ? (
           <p>Loading...</p>
@@ -105,21 +105,21 @@ function ViewEntries() {
           <p>No entries yet.</p>
         ) : (
           entries.map((entry) => (
-            <div key={entry.id} className="border border-muted-purple p-4 rounded flex justify-between items-start">
+            <div key={entry.id} className="border border-muted-purple-bg p-4 rounded flex justify-between items-start">
               <div className="cursor-pointer flex-1" onClick={() => setSelectedEntry(entry)}>
-                <h3 className="text-lg font-semibold text-dark-pastel-purple">{getHeading(entry.topic, entry.content)}</h3>
+                <h3 className="text-lg font-semibold text-dark-pastel-purple-text">{getHeading(entry.topic, entry.content)}</h3>
                 <p className="text-gray-600 text-sm">{new Date(entry.createdAt).toLocaleString()}</p>
               </div>
               <div className="space-x-2">
                 <button
                   onClick={() => setEditEntry({ ...entry, image: null, video: null, audio: null, content: entry.content || '', topic: entry.topic || '' })}
-                  className="bg-muted-purple text-white px-2 py-1 rounded hover:bg-dark-pastel-purple"
+                  className="bg-muted-purple-text text-white px-4 py-2 rounded hover:bg-dark-pastel-purple-text"
                 >
                   Update
                 </button>
                 <button
                   onClick={() => handleDelete(entry.id)}
-                  className="bg-muted-purple text-white px-2 py-1 rounded hover:bg-dark-pastel-purple"
+                  className="bg-muted-purple-text text-white px-4 py-2 rounded hover:bg-dark-pastel-purple-text"
                 >
                   Delete
                 </button>
@@ -131,11 +131,11 @@ function ViewEntries() {
       {selectedEntry && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl relative">
-            <div className="p-4 border-b border-muted-purple sticky top-0 bg-white z-20">
-              <button onClick={closeModal} className="text-dark-pastel-purple hover:text-pastel-purple text-xl absolute top-2 right-2">×</button>
+            <div className="p-4 border-b border-muted-purple-bg sticky top-0 bg-white z-20">
+              <button onClick={closeModal} className="text-dark-pastel-purple-text hover:text-pastel-purple-text text-xl absolute top-2 right-2">×</button>
             </div>
             <div className="p-4 max-h-96 overflow-y-auto">
-              <h3 className="text-xl sm:text-2xl font-semibold text-dark-pastel-purple mb-2">{getHeading(selectedEntry.topic, selectedEntry.content)}</h3>
+              <h3 className="text-xl sm:text-2xl font-semibold text-dark-pastel-purple-text mb-2">{getHeading(selectedEntry.topic, selectedEntry.content)}</h3>
               <p className="mt-2">{selectedEntry.content}</p>
               {selectedEntry.imagePath && (
                 <img src={`http://localhost:8080/api/diary/media/${selectedEntry.imagePath}`} alt="Diary Image" className="mt-2 max-w-xs" />
@@ -158,26 +158,26 @@ function ViewEntries() {
       {editEntry && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg w-full max-w-lg sm:max-w-md md:max-w-xl lg:max-w-2xl relative">
-            <div className="p-4 border-b border-muted-purple sticky top-0 bg-white z-20">
-              <button onClick={closeModal} className="text-dark-pastel-purple hover:text-pastel-purple text-xl absolute top-2 right-2">×</button>
+            <div className="p-4 border-b border-muted-purple-bg sticky top-0 bg-white z-20">
+              <button onClick={closeModal} className="text-dark-pastel-purple-text hover:text-pastel-purple-text text-xl absolute top-2 right-2">×</button>
             </div>
             <div className="p-4 max-h-96 overflow-y-auto">
-              <h3 className="text-xl sm:text-2xl font-semibold text-dark-pastel-purple mb-4">Edit Entry</h3>
+              <h3 className="text-xl sm:text-2xl font-semibold text-dark-pastel-purple-text mb-4">Edit Entry</h3>
               <form onSubmit={handleUpdate} className="space-y-4">
                 <div>
-                  <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Topic:</label>
+                  <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple-text">Topic:</label>
                   <input
                     type="text"
-                    className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
+                    className="w-full p-2 border border-muted-purple-bg rounded text-sm sm:text-base"
                     value={editEntry.topic || ''}
                     onChange={(e) => setEditEntry({ ...editEntry, topic: e.target.value })}
                     placeholder="Enter a topic (optional)"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Content:</label>
+                  <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple-text">Content:</label>
                   <textarea
-                    className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
+                    className="w-full p-2 border border-muted-purple-bg rounded text-sm sm:text-base"
                     rows="4"
                     value={editEntry.content || ''}
                     onChange={(e) => setEditEntry({ ...editEntry, content: e.target.value })}
@@ -186,46 +186,46 @@ function ViewEntries() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Image:</label>
+                  <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple-text">Image:</label>
                   <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => setEditEntry({ ...editEntry, image: e.target.files[0] })}
-                    className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
+                    className="w-full p-2 border border-muted-purple-bg rounded text-sm sm:text-base"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Video:</label>
+                  <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple-text">Video:</label>
                   <input
                     type="file"
                     accept="video/*"
                     onChange={(e) => setEditEntry({ ...editEntry, video: e.target.files[0] })}
-                    className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
+                    className="w-full p-2 border border-muted-purple-bg rounded text-sm sm:text-base"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple">Audio:</label>
+                  <label className="block text-sm sm:text-base mb-1 text-dark-pastel-purple-text">Audio:</label>
                   <input
                     type="file"
                     accept="audio/*"
                     onChange={(e) => setEditEntry({ ...editEntry, audio: e.target.files[0] })}
-                    className="w-full p-2 border border-muted-purple rounded text-sm sm:text-base"
+                    className="w-full p-2 border border-muted-purple-bg rounded text-sm sm:text-base"
                   />
                 </div>
                 <button
                   type="submit"
-                  className={`bg-muted-purple text-white px-4 py-2 rounded hover:bg-dark-pastel-purple text-sm sm:text-base ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`bg-muted-purple-text text-white px-4 py-2 rounded hover:bg-dark-pastel-purple-text text-sm sm:text-base ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                   disabled={loading}
                 >
                   {loading ? 'Saving...' : 'Update Entry'}
                 </button>
               </form>
-              {error && <p className="text-dark-pastel-purple mt-2 text-sm sm:text-base">{error}</p>}
+              {error && <p className="text-dark-pastel-purple-text mt-2 text-sm sm:text-base">{error}</p>}
             </div>
           </div>
         </div>
       )}
-      {error && !editEntry && <p className="text-dark-pastel-purple mt-2">{error}</p>}
+      {error && !editEntry && <p className="text-dark-pastel-purple-text mt-2">{error}</p>}
     </div>
   );
 }
