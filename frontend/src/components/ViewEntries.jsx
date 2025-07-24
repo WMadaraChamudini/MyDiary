@@ -130,90 +130,98 @@ function ViewEntries() {
       </div>
       {selectedEntry && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-md w-full relative">
-            <button onClick={closeModal} className="absolute top-2 right-2 text-gray-500 hover:text-gray-700">×</button>
-            <h3 className="text-xl font-semibold mb-2">{getHeading(selectedEntry.topic, selectedEntry.content)}</h3>
-            <p className="mt-2">{selectedEntry.content}</p>
-            {selectedEntry.imagePath && (
-              <img src={`http://localhost:8080/api/diary/media/${selectedEntry.imagePath}`} alt="Diary Image" className="mt-2 max-w-xs" />
-            )}
-            {selectedEntry.videoPath && (
-              <video controls className="mt-2 max-w-xs">
-                <source src={`http://localhost:8080/api/diary/media/${selectedEntry.videoPath}`} />
-              </video>
-            )}
-            {selectedEntry.audioPath && (
-              <audio controls className="mt-2">
-                <source src={`http://localhost:8080/api/diary/media/${selectedEntry.audioPath}`} />
-              </audio>
-            )}
-            <p className="text-gray-600 text-sm mt-2">{new Date(selectedEntry.createdAt).toLocaleString()}</p>
+          <div className="bg-white rounded-lg w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl relative">
+            <div className="p-4 border-b sticky top-0 bg-white z-20">
+              <button onClick={closeModal} className="text-gray-500 hover:text-gray-700 text-xl absolute top-2 right-2">×</button>
+            </div>
+            <div className="p-4 max-h-96 overflow-y-auto">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-2">{getHeading(selectedEntry.topic, selectedEntry.content)}</h3>
+              <p className="mt-2">{selectedEntry.content}</p>
+              {selectedEntry.imagePath && (
+                <img src={`http://localhost:8080/api/diary/media/${selectedEntry.imagePath}`} alt="Diary Image" className="mt-2 max-w-xs" />
+              )}
+              {selectedEntry.videoPath && (
+                <video controls className="mt-2 max-w-xs">
+                  <source src={`http://localhost:8080/api/diary/media/${selectedEntry.videoPath}`} />
+                </video>
+              )}
+              {selectedEntry.audioPath && (
+                <audio controls className="mt-2">
+                  <source src={`http://localhost:8080/api/diary/media/${selectedEntry.audioPath}`} />
+                </audio>
+              )}
+              <p className="text-gray-600 text-sm mt-2">{new Date(selectedEntry.createdAt).toLocaleString()}</p>
+            </div>
           </div>
         </div>
       )}
       {editEntry && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-4 rounded-lg w-full max-w-lg sm:max-w-md md:max-w-xl lg:max-w-2xl relative max-h-96 sm:max-h-80 md:max-h-96 overflow-y-auto">
-            <button onClick={closeModal} className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">×</button>
-            <h3 className="text-xl sm:text-2xl font-semibold mb-4">Edit Entry</h3>
-            <form onSubmit={handleUpdate} className="space-y-4 p-2">
-              <div>
-                <label className="block text-sm sm:text-base mb-1">Topic:</label>
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded text-sm sm:text-base"
-                  value={editEntry.topic || ''}
-                  onChange={(e) => setEditEntry({ ...editEntry, topic: e.target.value })}
-                  placeholder="Enter a topic (optional)"
-                />
-              </div>
-              <div>
-                <label className="block text-sm sm:text-base mb-1">Content:</label>
-                <textarea
-                  className="w-full p-2 border rounded text-sm sm:text-base"
-                  rows="4"
-                  value={editEntry.content || ''}
-                  onChange={(e) => setEditEntry({ ...editEntry, content: e.target.value })}
-                  placeholder="Write your diary entry..."
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm sm:text-base mb-1">Image:</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setEditEntry({ ...editEntry, image: e.target.files[0] })}
-                  className="w-full p-2 border rounded text-sm sm:text-base"
-                />
-              </div>
-              <div>
-                <label className="block text-sm sm:text-base mb-1">Video:</label>
-                <input
-                  type="file"
-                  accept="video/*"
-                  onChange={(e) => setEditEntry({ ...editEntry, video: e.target.files[0] })}
-                  className="w-full p-2 border rounded text-sm sm:text-base"
-                />
-              </div>
-              <div>
-                <label className="block text-sm sm:text-base mb-1">Audio:</label>
-                <input
-                  type="file"
-                  accept="audio/*"
-                  onChange={(e) => setEditEntry({ ...editEntry, audio: e.target.files[0] })}
-                  className="w-full p-2 border rounded text-sm sm:text-base"
-                />
-              </div>
-              <button
-                type="submit"
-                className={`bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-sm sm:text-base ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                disabled={loading}
-              >
-                {loading ? 'Saving...' : 'Update Entry'}
-              </button>
-            </form>
-            {error && <p className="text-red-500 mt-2 text-sm sm:text-base">{error}</p>}
+          <div className="bg-white rounded-lg w-full max-w-lg sm:max-w-md md:max-w-xl lg:max-w-2xl relative">
+            <div className="p-4 border-b sticky top-0 bg-white z-20">
+              <button onClick={closeModal} className="text-gray-500 hover:text-gray-700 text-xl absolute top-2 right-2">×</button>
+            </div>
+            <div className="p-4 max-h-96 overflow-y-auto">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-4">Edit Entry</h3>
+              <form onSubmit={handleUpdate} className="space-y-4">
+                <div>
+                  <label className="block text-sm sm:text-base mb-1">Topic:</label>
+                  <input
+                    type="text"
+                    className="w-full p-2 border rounded text-sm sm:text-base"
+                    value={editEntry.topic || ''}
+                    onChange={(e) => setEditEntry({ ...editEntry, topic: e.target.value })}
+                    placeholder="Enter a topic (optional)"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm sm:text-base mb-1">Content:</label>
+                  <textarea
+                    className="w-full p-2 border rounded text-sm sm:text-base"
+                    rows="4"
+                    value={editEntry.content || ''}
+                    onChange={(e) => setEditEntry({ ...editEntry, content: e.target.value })}
+                    placeholder="Write your diary entry..."
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm sm:text-base mb-1">Image:</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setEditEntry({ ...editEntry, image: e.target.files[0] })}
+                    className="w-full p-2 border rounded text-sm sm:text-base"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm sm:text-base mb-1">Video:</label>
+                  <input
+                    type="file"
+                    accept="video/*"
+                    onChange={(e) => setEditEntry({ ...editEntry, video: e.target.files[0] })}
+                    className="w-full p-2 border rounded text-sm sm:text-base"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm sm:text-base mb-1">Audio:</label>
+                  <input
+                    type="file"
+                    accept="audio/*"
+                    onChange={(e) => setEditEntry({ ...editEntry, audio: e.target.files[0] })}
+                    className="w-full p-2 border rounded text-sm sm:text-base"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className={`bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-sm sm:text-base ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  disabled={loading}
+                >
+                  {loading ? 'Saving...' : 'Update Entry'}
+                </button>
+              </form>
+              {error && <p className="text-red-500 mt-2 text-sm sm:text-base">{error}</p>}
+            </div>
           </div>
         </div>
       )}
