@@ -105,7 +105,7 @@ function ViewEntries() {
           <p>No entries yet.</p>
         ) : (
           entries.map((entry) => (
-            <div key={entry.id} className="border border-muted-purple-bg p-4 rounded flex justify-between items-start">
+            <div key={entry.id} className="border border-dark-pastel-purple-bg p-4 rounded shadow-md bg-white/90 flex justify-between items-start">
               <div className="cursor-pointer flex-1" onClick={() => setSelectedEntry(entry)}>
                 <h3 className="text-lg font-semibold text-dark-pastel-purple-text">{getHeading(entry.topic, entry.content)}</h3>
                 <p className="text-gray-600 text-sm">{new Date(entry.createdAt).toLocaleString()}</p>
