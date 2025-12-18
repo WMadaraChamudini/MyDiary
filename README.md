@@ -205,7 +205,6 @@ MyDiary/
 
 ### Frontend won't start
 
-- **Port 3000 already in use**: Stop any other application using port 3000
 - **Dependencies not installed**: Run `npm install` in the frontend directory
 - **Build errors**: Delete `node_modules` folder and `package-lock.json`, then run `npm install` again
 
