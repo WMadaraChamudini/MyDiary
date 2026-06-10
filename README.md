@@ -2,6 +2,8 @@
 
 A personal diary application that allows you to create, view, edit, and delete diary entries with support for multimedia attachments (images, videos, and audio).
 
+Demo Video: https://drive.google.com/file/d/1TJX-U_DzeY5hlqKnN72SZUEjSjxe2r0P/view?usp=sharing
+
 ## Features
 
 - Create diary entries with text content and optional topics
